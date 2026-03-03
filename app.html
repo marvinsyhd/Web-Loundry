@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>LaundryShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<script>
+  if (localStorage.getItem("isLogin") !== "true") {
+    window.location.href = "index.html";
+  }
+</script>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <h2>Laundry<span>Shop</span></h2>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <nav id="sidebarNav">
+    <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+    <a href="#" onclick="showSection('order')">Order</a>
+    <a href="#" onclick="showSection('laporan')">Laporan</a>
+
+    <!-- Tambahkan ini -->
+    <a href="#" class="logout-mobile" onclick="logout()">Logout</a>
+  </nav>
+
+  <!-- Logout desktop tetap -->
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <header class="topbar">
+      <h3>Dashboard</h3>
+      <button class="dark-toggle" onclick="toggleDark()">🌙</button>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <section id="dashboardSection">
+        <section class="dashboard">
+          <div class="dash-card">
+            <span>Total Order</span>
+            <h2 id="statOrder">0</h2>
+          </div>
+
+          <div class="dash-card">
+            <span>Masih Proses</span>
+            <h2 id="statProses">0</h2>
+          </div>
+
+          <div class="dash-card">
+            <span>Selesai</span>
+            <h2 id="statSelesai">0</h2>
+          </div>
+
+          <div class="dash-card highlight">
+            <span>Pendapatan</span>
+            <h2 id="statPendapatan">Rp 0</h2>
+          </div>
+        </section>
+
+        <section>
+          <canvas id="pendapatanChart" height="100"></canvas>
+        </section>
+      </section>
+
+      <!-- ORDER -->
+      <section id="orderSection" style="display:none;">
+
+        <section class="form-box">
+          <input id="nama" placeholder="Nama pelanggan">
+          <input id="berat" type="number" placeholder="Berat (kg)">
+          <select id="layanan">
+            <option value="4000">Cuci kering</option>
+            <option value="6000">Cuci + Setrika</option>
+            <option value="2000">Setrika</option>
+            <option value="3000">Cuci Lipat</option>
+          </select>
+          <select id="pembayaran">
+            <option value="CASH">CASH</option>
+            <option value="TF">Transfer</option>
+            <option value="QRIS">QRIS</option>
+          </select>
+          <button onclick="tambahOrder()">Tambah</button>
+        </section>
+        
+        <section class="grid" id="grid"></section>
+
+      </section>
+
+      <!-- LAPORAN -->
+      <section id="laporanSection" style="display:none;">
+        <h3>Laporan</h3>
+        <p>Total pendapatan akan tampil di dashboard dan grafik.</p>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
